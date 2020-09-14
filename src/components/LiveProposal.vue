@@ -4,39 +4,39 @@
        <p>
       Welcome to the live Ellipweb Solar Business Proposal.<br>
       You can read the proposal and make comments on any aspects of the proposal.<br/>
-      Please Check out the Ellipweb <a href="https://solar.ellipweb.com" target="_blank" rel="noopener">terms and conditions</a> of use.
+      Please Check out the Ellipweb <router-link to="/terms">terms and conditions</router-link> of use.
     </p>
        <h3>Sections</h3>
-       <h4><a href="">Introduction</a></h4>
+       <h4><router-link to="/intoduction">Introduction</router-link></h4>
        <ul>
-           <li><a href="">Cover Letter</a></li>
-           <li><a href="">Preambles</a></li>
+           <li><router-link to="/">Cover Letter</router-link></li>
+           <li><router-link to="/">Preambles</router-link></li>
        </ul>
-       <h4><a href="">Executive Summary</a></h4>
+       <h4><router-link to="">Executive Summary</router-link></h4>
        <ul>
-            <li><a href="">Creating a Green Powered Society</a></li>
-            <li><a href="">Supporting the Power generation Infrastructure</a></li>
-            <li><a href="">Marketing and Promotion</a></li>
-            <li><a href="">Current Competition</a></li>
-            <li><a href="">Sustained Research and Development</a></li>
-            <li><a href="">Analytics</a></li>
-            <li><a href="">Financials</a></li>
+            <li><router-link to="/">Creating a Green Powered Society</router-link></li>
+            <li><router-link to="/">Supporting the Power generation Infrastructure</router-link></li>
+            <li><router-link to="/">Marketing and Promotion</router-link></li>
+            <li><router-link to="/">Current Competition</router-link></li>
+            <li><router-link to="/">Sustained Research and Development</router-link></li>
+            <li><router-link to="/">Analytics</router-link></li>
+            <li><router-link to="/">Financials</router-link></li>
        </ul>
-       <h4><a href="">Assessment</a></h4>
-       <h4><a href="">Production Plan</a></h4>
-       <h4><a href="">Marketing Strategy and Plan</a></h4>  
-       <h4><a href="">Organisation and Management Plan</a></h4>
-       <h4><a href="">Financial Analysis</a></h4>
-       <h4><a href="">SWOT Analysis</a></h4>
-       <h4><a href="">Conclusion</a></h4> 
-       <h4><a href="">Todo List</a></h4>
-       <h4><a href>List of Tables</a></h4>
+       <h4><router-link to="/">Assessment</router-link></h4>
+       <h4><router-link to="/">Production Plan</router-link></h4>
+       <h4><router-link to="/">Marketing Strategy and Plan</router-link></h4>  
+       <h4><router-link to="/">Organisation and Management Plan</router-link></h4>
+       <h4><router-link to="/">Financial Analysis</router-link></h4>
+       <h4><router-link to="/">SWOT Analysis</router-link></h4>
+       <h4><router-link to="/">Conclusion</router-link></h4> 
+       <h4><router-link to="/">Todo List</router-link></h4>
+       <h4><router-link to="/">List of Tables</router-link></h4>
        <ul>
-           <li><a href="">Personnel Requirement</a></li>
-           <li><a href="">Fixed and Variable Cost – Equipment requirement</a></li>
-           <li><a href="">Cost to Customers</a></li>
-           <li><a href="">Projected turnover and profit</a></li>
-           <li><a href="">Return on Investment</a></li>
+           <li><router-link to="/">Personnel Requirement</router-link></li>
+           <li><router-link to="/">Fixed and Variable Cost – Equipment requirement</router-link></li>
+           <li><router-link to="/">Cost to Customers</router-link></li>
+           <li><router-link to="/">Projected turnover and profit</router-link></li>
+           <li><router-link to="/">Return on Investment</router-link></li>
        </ul>
        
    </div> 

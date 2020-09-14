@@ -1,36 +1,32 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
+    <div id="nav">
+      <router-link to="/">Home</router-link> | 
+      <router-link to="/introduction">Introduction</router-link> | 
+      <router-link to="/landing">Proposal</router-link> |
+      <router-link to="/about">About</router-link> |
+      <router-link to="terms">Terms and Conditions</router-link>
+    </div>
+    <!-- <LiveProposal msg="Business proposal for Solar Power Installation" /> -->
     
-    <LiveProposal msg="Business proposal for Solar Power Installation" />
-    
-    <ToDoList title="First Item" />
+    <!-- <ToDoList title="First Item" /> -->
     <router-view />
   </div>
 </template>
 
 <script>
-import LiveProposal from './components/LiveProposal.vue';
-import ToDoList from './components/ToDoList.vue';
+// import LiveProposal from './components/LiveProposal.vue';
+// import ToDoList from './components/ToDoList.vue';
 
 export default {
   name: 'App',
   components: {
-    LiveProposal,
-    ToDoList,
+    // LiveProposal,
+    // ToDoList,
     
   },
-  computed: {
-    username() {
-      return this.$router.params.username
-    }
-    
-  },
-  methods: {
-    goBack() {
-      window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
-    }
-  }
+
 }
 </script>
 
