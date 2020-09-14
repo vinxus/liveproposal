@@ -5,13 +5,13 @@
     <LiveProposal msg="Business proposal for Solar Power Installation" />
     
     <ToDoList title="First Item" />
-    
+    <router-view />
   </div>
 </template>
 
 <script>
-import LiveProposal from './components/LiveProposal.vue'
-import ToDoList from './components/ToDoList.vue'
+import LiveProposal from './components/LiveProposal.vue';
+import ToDoList from './components/ToDoList.vue';
 
 export default {
   name: 'App',
@@ -19,6 +19,17 @@ export default {
     LiveProposal,
     ToDoList,
     
+  },
+  computed: {
+    username() {
+      return this.$router.params.username
+    }
+    
+  },
+  methods: {
+    goBack() {
+      window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+    }
   }
 }
 </script>
