@@ -6,7 +6,9 @@
       <router-link to="/introduction">Introduction</router-link> | 
       <router-link to="/landing">Proposal</router-link> |
       <router-link to="/about">About</router-link> |
-      <router-link to="terms">Terms and Conditions</router-link>
+      <router-link to="terms">Terms and Conditions</router-link> |
+      <router-link to="/login">Login</router-link> |
+      <router-link to="/register">Register</router-link>
     </div>
     <!-- <LiveProposal msg="Business proposal for Solar Power Installation" /> -->
     
