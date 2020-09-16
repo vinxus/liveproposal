@@ -2,24 +2,24 @@
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
     <div id="nav">
-      <router-link to="/">Home</router-link> | 
-      <router-link to="/introduction">Introduction</router-link> | 
-      <router-link to="/landing">Proposal</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="terms">Terms and Conditions</router-link> |
-      <router-link to="/login">Login</router-link> |
-      <router-link to="/register">Register</router-link>
+      <ul class="topmenu">
+        <li><router-link to="/">Home</router-link></li>
+        <li><router-link to="/introduction">Introduction</router-link></li>
+        <li><router-link to="/landing">Proposal</router-link></li>
+        <li><router-link to="/about">About</router-link></li>
+        <li><router-link to="terms">Terms and Conditions</router-link></li>
+        <li v-if="loggedIn == false"><router-link  to="/login">Login</router-link></li>
+        <li v-if="loggedIn == true"><router-link  to="/logout">Log out</router-link> </li>
+        <li v-if="loggedIn == false" ><router-link  to="/register"> Register </router-link></li>
+      </ul>
+      
     </div>
-    <!-- <LiveProposal msg="Business proposal for Solar Power Installation" /> -->
-    
-    <!-- <ToDoList title="First Item" /> -->
+
     <router-view />
   </div>
 </template>
 
 <script>
-// import LiveProposal from './components/LiveProposal.vue';
-// import ToDoList from './components/ToDoList.vue';
 
 export default {
   name: 'App',
@@ -28,7 +28,16 @@ export default {
     // ToDoList,
     
   },
-
+  data(){
+    // check for logged In
+    let loginState = false;
+    if(localStorage.getItem("user")) {
+      loginState = true;
+    }
+    return {
+      loggedIn: loginState
+    }
+  }
 }
 </script>
 
@@ -40,5 +49,13 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+.topmenu {
+  list-style: none;
+  
+}
+.topmenu > li {
+  display: inline-block;
+  padding: 5px;
 }
 </style>

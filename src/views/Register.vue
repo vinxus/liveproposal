@@ -53,11 +53,11 @@
         methods : {
             handleSubmit(e) {
                 e.preventDefault()
-
+                console.log('Registration');
                 if (this.password === this.password_confirmation && this.password.length > 0)
                 {
-                    let url = "http://localhost:3000/register"
-                    if(this.is_admin != null || this.is_admin == 1) url = "http://localhost:3000/register-admin"
+                    let url = "http://localhost:3030/register"
+                    if(this.is_admin != null || this.is_admin == 1) url = "http://localhost:3030/register-admin"
                     this.$http.post(url, {
                         name: this.name,
                         email: this.email,

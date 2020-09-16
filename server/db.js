@@ -27,6 +27,7 @@ class Db {
     }
 
     insertAdmin(user, callback) {
+        console.log(user);
         return this.db.run(
             'INSERT INTO user (name,email,user_pass,is_admin) VALUES (?,?,?,?)',
             user, (err) => {

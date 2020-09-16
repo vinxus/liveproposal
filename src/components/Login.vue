@@ -33,7 +33,7 @@
             handleSubmit(e){
                 e.preventDefault()
                 if (this.password.length > 0) {
-                    this.$http.post('http://localhost:3000/login', {
+                    this.$http.post('http://localhost:3030/login', {
                         email: this.email,
                         password: this.password
                     })
@@ -44,6 +44,7 @@
 
                         if (localStorage.getItem('jwt') != null){
                             this.$emit('loggedIn')
+                            
                             if(this.$route.params.nextUrl != null){
                                 this.$router.push(this.$route.params.nextUrl)
                             }
