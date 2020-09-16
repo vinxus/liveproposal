@@ -4,8 +4,11 @@
   "description": "The Proposal Node JS Server",
   "main": "index.js",
   "repository": "git@github.com:vinxus/liveproposal.git",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"nodemon app.js\" \"cd .. && npm start\"",   
+    "start-server": "kill-port 3030 && nodemon server.js"
   },
   "author": "Bolan Oluwa",
   "license": "ISC",
@@ -18,6 +21,7 @@
     "mongoose": "^5.8.0"
   },
   "devDependencies": {
-    "jest": "^26.0.1"
+    "jest": "^26.0.1",
+    "nodemon": "^2.0.4"
   }
 }
