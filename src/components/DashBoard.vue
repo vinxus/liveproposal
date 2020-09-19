@@ -1,6 +1,6 @@
 <template>
     <div class="hello">
-        <h1>Welcome to your Dashboard</h1>
+        <h2>{{ $route.params.username }} Welcome to your Dashboard</h2>
         <h2>{{msg}}</h2>
     </div>
 </template>

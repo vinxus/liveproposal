@@ -14,7 +14,8 @@ class Db {
                 name text,
                 email text UNIQUE,
                 user_pass text,
-                is_admin integer)`
+                is_admin integer,
+                is_logged_in integer)`
         return this.db.run(sql);
     }
 
@@ -27,7 +28,7 @@ class Db {
     }
 
     insertAdmin(user, callback) {
-        console.log(user);
+        
         return this.db.run(
             'INSERT INTO user (name,email,user_pass,is_admin) VALUES (?,?,?,?)',
             user, (err) => {
@@ -47,6 +48,16 @@ class Db {
             user, (err) => {
                 callback(err)
             })
+    }
+
+    updateLogin(email, loginStatus, callback) {
+        console.log(email);
+        return this.db.run(
+            'UPDATE user set is_logged_in =' + loginStatus + ' where email ='+ email,
+            email, (err) => {
+                callback(err)
+            }
+        )
     }
 }
 

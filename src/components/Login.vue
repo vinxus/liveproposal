@@ -3,19 +3,21 @@
         <h4>Login</h4>
         <form>
             <label for="email" >E-Mail Address</label>
-            <div>
-                <input id="email" type="email" v-model="email" required autofocus>
+            <div class="login-line">
+                <input id="email" type="email" v-model="email" required autofocus class="line-input">
             </div>
-            <div>
-                <label for="password" >Password</label>
-                <div>
-                    <input id="password" type="password" v-model="password" required>
-                </div>
+            <label for="password" >Password</label>                          
+            <div class="reg-line">
+                <input id="password" type="password" v-model="password" required class="line-input">
             </div>
-            <div>
-                <button type="submit" @click="handleSubmit">
+            
+            <div class="login-line">
+                <button type="submit" @click="handleSubmit" class="btn-primary">
                     Login
-                </button>
+                </button>                
+            </div>
+            <div class="login-line">
+                <router-link to="/register">Don't have an account? Register</router-link>
             </div>
         </form>
     </div>
@@ -30,13 +32,27 @@
             }
         },
         methods : {
-            handleSubmit(e){
-                e.preventDefault()
-                if (this.password.length > 0) {
-                    this.$http.post('http://localhost:3030/login', {
+            login() {
+                if(this.email.length > 0 && this.password.length > 0) {
+                    this.$store
+                    .dispatch('login', {
                         email: this.email,
                         password: this.password
                     })
+                    .then((user) => {
+                        this.$route.push({ name: 'dashboard', username: user.username })
+                    })
+                }
+                
+            },
+            handleSubmit(e){
+                e.preventDefault();
+                let userData = {
+                                    email: this.email,
+                                    password: this.password
+                               };
+                if (this.password.length > 0) {
+                    this.$http.post('http://localhost:3030/login', userData)
                     .then(response => {
                        let is_admin = response.data.user.is_admin
                         localStorage.setItem('user',JSON.stringify(response.data.user))
@@ -44,7 +60,8 @@
 
                         if (localStorage.getItem('jwt') != null){
                             this.$emit('loggedIn')
-                            
+                            this.$store
+                                    .dispatch('storeUserData', userData)    
                             if(this.$route.params.nextUrl != null){
                                 this.$router.push(this.$route.params.nextUrl)
                             }
@@ -53,7 +70,7 @@
                                     this.$router.push('admin')
                                 }
                                 else {
-                                    this.$router.push('dashboard')
+                                    this.$router.push({name: 'dashboard', username: userData.name })
                                 }
                             }
                         }     
@@ -67,5 +84,11 @@
     }
 </script>
 <style scoped>
-
+/* @import bootstrap from 'bootstrap'; */
+    .login-line {
+        padding-bottom: 1em;
+    }
+    .line-input {
+        height: 25px;
+    }
 </style>

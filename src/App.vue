@@ -1,43 +1,41 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <div id="nav">
-      <ul class="topmenu">
-        <li><router-link to="/">Home</router-link></li>
-        <li><router-link to="/introduction">Introduction</router-link></li>
-        <li><router-link to="/landing">Proposal</router-link></li>
-        <li><router-link to="/about">About</router-link></li>
-        <li><router-link to="terms">Terms and Conditions</router-link></li>
-        <li v-if="loggedIn == false"><router-link  to="/login">Login</router-link></li>
-        <li v-if="loggedIn == true"><router-link  to="/logout">Log out</router-link> </li>
-        <li v-if="loggedIn == false" ><router-link  to="/register"> Register </router-link></li>
-      </ul>
-      
-    </div>
-
+  <div id="app">    
+    <NavBar />
+    <!-- <img alt="EW3 logo" src="./assets/logo.png"> -->
+    <router-link to="/introduction">Introduction</router-link> | 
+    <router-link to="/landing">Proposal</router-link> | 
+    <router-link to="terms">Terms and Conditions</router-link>
+    
     <router-view />
+
+    <FooterBar />
+    
   </div>
 </template>
 
 <script>
+import NavBar from "./components/NavBar";
+import FooterBar from "./components/FooterBar";
+import { authComputed } from './vuex/helpers.js';
 
 export default {
   name: 'App',
   components: {
-    // LiveProposal,
-    // ToDoList,
-    
+    NavBar,
+    FooterBar
   },
-  data(){
-    // check for logged In
-    let loginState = false;
-    if(localStorage.getItem("user")) {
-      loginState = true;
-    }
-    return {
-      loggedIn: loginState
-    }
-  }
+  props: {
+    loginState: Boolean
+  },
+  computed: {
+            ...authComputed
+        },
+        methods: {
+          logout() {
+            console.log('Logged out');
+          }
+        }
+
 }
 </script>
 
@@ -57,5 +55,6 @@ export default {
 .topmenu > li {
   display: inline-block;
   padding: 5px;
+
 }
 </style>

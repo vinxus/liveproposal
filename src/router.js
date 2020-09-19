@@ -6,18 +6,26 @@ import LiveProposal from './components/LiveProposal.vue';
 import Introduction from './views/Introduction.vue';
 import TermsAndConditions from './views/TermsAndConditions.vue';
 import About from './views/About.vue';
-import Register from './views/Register';
+import RegisterUser from './views/RegisterUser';
 import Login from './components/Login';
 import Logout from './components/Logout';
 import Admin from './components/Admin';
 import DashBoard from './components/DashBoard';
+import User from './components/User';
+import NotFoundComponent from './components/NotFoundComponent';
 
 Vue.use(Router);
 const routes = [
 
      { path: '/', component: Home },
      { path: '/about', component: About },
-     { path: '/landing', component: LiveProposal },
+     { 
+         path: '/landing', 
+         component: LiveProposal, 
+         meta: {
+            requiresAuth: true
+         }, 
+     },
      { path: '/proposal', component: Site, meta: { requiresAuth: true} },
      { path: '/introduction', component: Introduction },
      { path: '/terms', component: TermsAndConditions },
@@ -32,7 +40,7 @@ const routes = [
      {
         path: '/register',
         name: 'register',
-        component: Register,
+        component: RegisterUser,
         meta: {
             guest: true
         }
@@ -47,12 +55,31 @@ const routes = [
         } 
     },
     {
-        path: '/dashboard',
+        path: '/dashboard/:username',
         name: 'userboard',
         component: DashBoard,
         meta: {
             requiresAuth: true
-        }
+        },
+        props: true
+    },
+    {
+        path: '/user/:username',
+        name: 'user',
+        component: User,
+        meta: {
+            requiresAuth: true
+        },
+        props: true
+    },
+    {
+        path: '/dashboard/:username',
+        name: 'dashboard',
+        component: DashBoard,
+        meta: {
+            requiresAuth: true
+        },
+        props: true
     },
     {
         path: '/admin',
@@ -63,6 +90,7 @@ const routes = [
             is_admin : true
         }
     },
+    { path: '*', component: NotFoundComponent },
   ];
   let router = new Router({
     mode: 'history',
@@ -94,7 +122,7 @@ const routes = [
             next()
         }
         else{
-            next({ name: 'Dashboard'})
+            next({ name: 'dashboard'})
         }
     }else {
         next()
