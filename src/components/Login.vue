@@ -1,7 +1,7 @@
 <template>
     <div>
         <h4>Login</h4>
-        <form>
+        <form @submit.prevent="login">
             <label for="email" >E-Mail Address</label>
             <div class="login-line">
                 <input id="email" type="email" v-model="email" required autofocus class="line-input">
@@ -12,7 +12,7 @@
             </div>
             
             <div class="login-line">
-                <button type="submit" @click="handleSubmit" class="btn-primary">
+                <button type="submit" class="btn-primary">
                     Login
                 </button>                
             </div>
@@ -20,6 +20,7 @@
                 <router-link to="/register">Don't have an account? Register</router-link>
             </div>
         </form>
+        <p>{{ error }}</p>
     </div>
 </template>
 <script>
@@ -28,7 +29,8 @@
         data(){
             return {
                 email : "",
-                password : ""
+                password : "",
+                error: null
             }
         },
         methods : {
@@ -39,8 +41,16 @@
                         email: this.email,
                         password: this.password
                     })
-                    .then((user) => {
-                        this.$route.push({ name: 'dashboard', username: user.username })
+                    .then((data) => {
+                        console.log(data);
+                        console.log(data.user);
+                        this.$router.push({ name: 'dashboard', username: data.user.name })
+                    })
+                    .catch(err => {
+                        console.log('Error Login In!!!')
+                        console.log(err);
+                        //console.log(err.response.data);
+                        this.error = err.response.data.error
                     })
                 }
                 

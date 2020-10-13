@@ -12,9 +12,21 @@ export default new Vuex.Store({
     SET_USER_DATA (state, userData) {
       state.user = userData
       localStorage.setItem('user', JSON.stringify(userData))
+      localStorage.setItem('jwt', JSON.stringify(userData.token))
       axios.defaults.headers.common['Authorization'] = `Bearer ${
         userData.token
       }`
+    },
+    CLEAR_USER_DATA () {
+        localStorage.removeItem('user')
+        localStorage.removeItem('jwt')     
+    },
+    LOGOUT (state) {
+        state.user = null
+        localStorage.removeItem('user')
+        localStorage.removeItem('jwt')
+        axios.defaults.headers.common['Authorization'] = null
+        location.reload()
     }
   },
   actions: {
@@ -22,6 +34,7 @@ export default new Vuex.Store({
       return axios
         .post('//localhost:3030/register', credentials)
         .then(({ data }) => {
+            console.log(data);
           commit('SET_USER_DATA', data)
         })
     },
@@ -29,13 +42,19 @@ export default new Vuex.Store({
       return axios
         .post('//localhost:3030/login', credentials)
         .then(({ data }) => {
+            console.log(data);
           commit('SET_USER_DATA', data)
+           return data;
         })
+
+    },
+    logout({commit}) {
+        commit('LOGOUT')
     },
     storeUserData({ commit }, userData){
-        console.log('STORE DATA');
+        console.log('STORE USER DATA');
         commit('SET_USER_DATA', userData);
-      }
+    }
   },
   getters: {
     loggedIn (state) {

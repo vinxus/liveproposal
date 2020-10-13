@@ -1,29 +1,15 @@
 <template>
     <div class="hello">
-        <h2>{{ $route.params.username }} Welcome to your Dashboard</h2>
+        <h2>{{ $route.params.username }} Welcome to your Userboard</h2>
         <h2>{{msg}}</h2>
-        <div>
-            <span>Start a new Proposal <button @click="addProposal()">+</button></span>
-        </div>
-        <ProposalDialog />
     </div>
-    
 </template>
 
 <script>
-    import ProposalDialog from './ProposalDialog';
     export default {
-        components: {
-            ProposalDialog
-        },
         data () {
             return {
-                msg: 'The commoners'
-            }
-        },
-        methods: {
-            addProposal() {
-                // Load/Show Proposal Dialog box
+                msg: 'The user board'
             }
         }
     }

@@ -39,6 +39,11 @@
                 <router-link to="/login">Have an account? Login</router-link>
             </div>
         </form>
+            <ul>
+                <li v-for="(error, index) in errors" :key="index">
+                    {{ error }}
+                </li>
+            </ul>
     </div>
 </template>
 <script>
@@ -50,7 +55,8 @@
                 email : "",
                 password : "",
                 password_confirmation : "",
-                is_admin : null
+                is_admin : null,
+                errors: null
             }
         },
         methods : {
@@ -66,6 +72,9 @@
                 .then(() => {
                     this.$router.push({ name: 'dashboard', 
                                         username: userData.name })
+                })
+                .catch(err => {
+                    this.errors = err.response.data.errors
                 })
             },
         //     handleSubmit(e) {

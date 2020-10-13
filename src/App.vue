@@ -16,7 +16,6 @@
 <script>
 import NavBar from "./components/NavBar";
 import FooterBar from "./components/FooterBar";
-import { authComputed } from './vuex/helpers.js';
 
 export default {
   name: 'App',
@@ -27,14 +26,12 @@ export default {
   props: {
     loginState: Boolean
   },
-  computed: {
-            ...authComputed
-        },
-        methods: {
-          logout() {
-            console.log('Logged out');
-          }
-        }
+
+  methods: {
+    logout() {
+      console.log('Logged out');
+    }
+  }
 
 }
 </script>

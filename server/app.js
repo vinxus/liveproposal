@@ -13,7 +13,6 @@ let sections = [{title: 'title', text: 'asdfsdfsdf'}]
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 
-let verifyToken = "";
 
 // CORS middleware
 const allowCrossDomain = function(req, res, next) {
@@ -26,23 +25,43 @@ const allowCrossDomain = function(req, res, next) {
 app.use(allowCrossDomain);
 
 router.post('/register', function(req, res) {
+    // let errorsToSend = [];
+    // db.selectByEmail(req.body.email, (err, user) => {
+    //     errorsToSend.push('You cannot use this email');
+                
+    //     console.log(user);
+    //     if(user) {
+    //         console.log('Existing user ...');
+    //         return res.status(400).json({errors: errorsToSend})
+    //     } 
+
+    // })
+
+    console.log("Did you ever get here????");
     db.insert([
         req.body.name,
         req.body.email,
         bcrypt.hashSync(req.body.password, 8)
     ],
     function (err) {
-        if (err) return res.status(500).send("There was a problem registering the user.")
+        if (err) return res.status(500).send({ errors: ["There was a problem registering the user."] })
         db.selectByEmail(req.body.email, (err,user) => {
-            if (err) return res.status(500).send("There was a problem getting user")
+            if (err) return res.status(500).send({errors: ["There was a problem getting user"]})
             let token = jwt.sign({ id: user.id }, config.secret, {expiresIn: 86400 // expires in 24 hours
             });
             res.status(200).send({ auth: true, token: token, user: user });
         });
     });
+
 });
 
 router.post('/register-admin', function(req, res) {
+    let errorsToSend = [];
+    // check if email already exists
+    db.selectByEmail(req.body.email, (err, user) => {
+        errorsToSend.push('You cannot use this email');
+        if(user) res.status(400).send({errors: errorsToSend})
+    })
     db.insertAdmin([
         req.body.name,
         req.body.email,
@@ -61,15 +80,22 @@ router.post('/register-admin', function(req, res) {
 });
 
 router.post('/login', (req, res) => {
+    
     db.selectByEmail(req.body.email, (err, user) => {
         if (err) return res.status(500).send('Error on the server.');
-        if (!user) return res.status(404).send('No user found.');
+        
+        // if (!user) return res.status(404).send('No user found.');
+        
+        if (!user) {            
+            return res.status(401).json({ error: 'Unauthorized', message: 'Not Authorized - Invalid login details.' });
+        }
+        
         let passwordIsValid = bcrypt.compareSync(req.body.password, user.user_pass);
-        if (!passwordIsValid) return res.status(401).send({ auth: false, token: null });
+        if (!passwordIsValid) return res.status(401).send({ auth: false, token: null, error: 'Invalid username or password!' });
         if(passwordIsValid) {
             db.updateLogin(user, 1, function(err){
                 // deal with any fallout here    
-                if (err) return res.status(500).send({message: 'Something bad happened and I cannot log you in'});
+                // if (err) return res.status(500).send({message: 'Something bad happened and I cannot log you in'});
             } )
         }
         
@@ -87,21 +113,34 @@ router.post('/logout', (req, res) => {
     })
     res.status(200).send({ auth: false, token: null, user: null, success: true, message: 'You have been logged out' });
 })
-// router.get('/dashboard', (req, res) => {
-//     jwt.verify(req.token, 'the_secret_key', err => {
-//         if(err) {
-//             res.sendStatus(401)
-//         } else {
-//         res.json({
-//             sections: sections
-//         })
-//     }
-//     })
-// })
+router.get('/dashboard', verifyToken, (req, res) => {
+    jwt.verify(req.token, 'the_secret_key', err => {
+        if(err) {
+            res.sendStatus(401)
+        } else {
+        res.json({
+            sections: sections
+        })
+    }
+    })
+})
 app.use(router)
 
 let port = process.env.PORT || 3030;
 
+// MIDDLEWARE
+function verifyToken (req, res, next) {
+    const bearerHeader = req.headers['authorization']
+  
+    if (typeof bearerHeader !== 'undefined') {
+      const bearer = bearerHeader.split(' ')
+      const bearerToken = bearer[1]
+      req.token = bearerToken
+      next()
+    } else {
+      res.sendStatus(401)
+    }
+  }
 let server = app.listen(port, function() {
     console.log('Express server listening on port ' + port)
 });

@@ -11,6 +11,7 @@ import Login from './components/Login';
 import Logout from './components/Logout';
 import Admin from './components/Admin';
 import DashBoard from './components/DashBoard';
+import UserBoard from './components/UserBoard';
 import User from './components/User';
 import NotFoundComponent from './components/NotFoundComponent';
 
@@ -55,9 +56,9 @@ const routes = [
         } 
     },
     {
-        path: '/dashboard/:username',
+        path: '/userboard/:username',
         name: 'userboard',
-        component: DashBoard,
+        component: UserBoard,
         meta: {
             requiresAuth: true
         },
@@ -97,9 +98,13 @@ const routes = [
     routes: routes
     
   })
+//   router.beforeEach((to, from, next) => {
+
+//   })
   router.beforeEach((to, from, next) => {
     if(to.matched.some(record => record.meta.requiresAuth)) {
-        if (localStorage.getItem('jwt') == null) {
+        if (localStorage.getItem('user') == null) {
+
             next({
                 path: '/login',
                 params: { nextUrl: to.fullPath }
@@ -109,9 +114,10 @@ const routes = [
             if(to.matched.some(record => record.meta.is_admin)) {
                 if(user.is_admin == 1){
                     next()
+                    return;
                 }
                 else{
-                    next({ name: 'userboard'})
+                    next({ name: 'userboard', username: user.email })
                 }
             }else {
                 next()
@@ -121,13 +127,14 @@ const routes = [
         if(localStorage.getItem('jwt') == null){
             next()
         }
-        else{
-            next({ name: 'dashboard'})
+        else {
+            // TODO: FIX THIS - it should be going to somewhere - I don't know yet
+            // next({ name: 'dashboard'})
+            next({ name: 'dashboard', username: 'Guest'})
         }
     }else {
         next()
     }
 })
 
-// export default router  
 export default router;
