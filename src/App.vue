@@ -78,7 +78,8 @@ export default {
         margin-top: 30px;
         padding: 20px;
         background-color: white;
-        min-height: 500px;
+        min-height: 40%;
+        max-height: 70%;
         z-index: 10;
         opacity: 1;
     }
