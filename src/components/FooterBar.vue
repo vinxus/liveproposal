@@ -17,7 +17,7 @@
     .footer {
         position: absolute;
         top: 90%;
-        left: 30%;
-        
+        left: 40%;
+        text-align: center;
     }
 </style>

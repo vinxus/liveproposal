@@ -1,7 +1,7 @@
 <template>
     <div class="site-container">
 
-        <SideBar title="EW3 Solar Proposal" />
+        <SideBar title="Live Proposal" />
         <Content />
     </div>
 </template>
