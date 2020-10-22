@@ -1,9 +1,9 @@
-import Vue from 'vue'
+// import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 
-Vue.use(Vuex)
-
+//Vue.use(Vuex)
+let serverUrl = 'http://localhost:3030';
 export default new Vuex.Store({
   state: {
     user: null
@@ -32,7 +32,7 @@ export default new Vuex.Store({
   actions: {
     register ({ commit }, credentials) {
       return axios
-        .post('//localhost:3030/register', credentials)
+        .post(serverUrl + 'register', credentials)
         .then(({ data }) => {
             console.log(data);
           commit('SET_USER_DATA', data)

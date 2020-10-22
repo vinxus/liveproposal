@@ -44,13 +44,13 @@
                     .then((data) => {
                         console.log(data);
                         console.log(data.user);
-                        this.$router.push({ name: 'dashboard', username: data.user.name })
+                        this.$router.push({ name: 'dashboard', params: {username: data.user.name} })
                     })
                     .catch(err => {
                         console.log('Error Login In!!!')
                         console.log(err);
-                        //console.log(err.response.data);
-                        this.error = err.response.data.error
+                        // console.log(err.response);
+                        // this.error = err.response
                     })
                 }
                 
@@ -69,7 +69,7 @@
                         localStorage.setItem('jwt',response.data.token)
 
                         if (localStorage.getItem('jwt') != null){
-                            this.$emit('loggedIn')
+                            this.$emit('logged-in')
                             this.$store
                                     .dispatch('storeUserData', userData)    
                             if(this.$route.params.nextUrl != null){

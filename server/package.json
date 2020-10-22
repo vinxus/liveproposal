@@ -8,7 +8,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "concurrently \"nodemon app.js\" \"cd .. && npm start\"",   
-    "start-server": "kill-port 3030 && nodemon server.js"
+    "start-server": "kill-port 3030 && nodemon app.js"
   },
   "author": "Bolan Oluwa",
   "license": "ISC",

@@ -2,20 +2,20 @@
     <div class="bulk-action-bar">
         <span class="checkbox">
         <input type="checkbox"
-            :checked="allEmailsSelected"
-            :class="[someEmailsSelected ? 'partial-check' : '' ]"
+            :checked="allProposalsSelected"
+            :class="[someProposalsSelected ? 'partial-check' : '' ]"
             @click="bulkSelect()" />
         </span>
         <span class="buttons">
-            <button @click="emailSelection.markRead()"
-                    :disabled="[...emailSelection.emails].every(e => e.read)">
+            <button @click="proposalSelection.markRead()"
+                    :disabled="[...proposalSelection.proposals].every(e => e.read)">
                     Mark Read
             </button>
-            <button @click="emailSelection.markUnRead()"
-                    :disabled="[...emailSelection.emails].every(e => !e.read)">
+            <button @click="proposalSelection.markUnRead()"
+                    :disabled="[...proposalSelection.proposals].every(e => !e.read)">
                     Mark Unread
                     </button>
-            <button @click="emailSelection.archive()"
+            <button @click="proposalSelection.archive()"
                     :disabled="numberSelected == 0">
                 Archive
             </button>
@@ -24,39 +24,39 @@
     </div>
 </template>
 <script>
-import useEmailSelection from '@/compositions/use-proposal-selection';
+import useProposalSelection from '@/compositions/use-proposal-selection';
 import { computed } from 'vue';
 
 export default {
     setup (props){
-        let emailSelection = useEmailSelection();
+        let proposalSelection = useProposalSelection();
         
-        let numberSelected = computed(() => emailSelection.emails.size)
-        let numberEmails = computed(() => props.emails.length)
-        let allEmailsSelected = computed(() => {
-            return numberSelected.value == numberEmails.value
+        let numberSelected = computed(() => proposalSelection.proposals.size)
+        let numberProposals = computed(() => props.proposals.length)
+        let allProposalsSelected = computed(() => {
+            return numberSelected.value == numberProposals.value
         })
-        let someEmailsSelected = computed(() => {
-            return numberSelected.value > 0 && numberSelected.value < numberEmails.value
+        let someProposalsSelected = computed(() => {
+            return numberSelected.value > 0 && numberSelected.value < numberProposals.value
         })
         let bulkSelect = function(){
-            if(allEmailsSelected.value) {
-                emailSelection.clear()
+            if(allProposalsSelected.value) {
+                proposalSelection.clear()
             } else {
-                emailSelection.addMultiple(props.emails)
+                proposalSelection.addMultiple(props.proposals)
             }
         }
 
         return {
-            someEmailsSelected,
-            allEmailsSelected,
+            someProposalsSelected,
+            allProposalsSelected,
             bulkSelect,
-            emailSelection,
+            proposalSelection,
             numberSelected    
         }
     },
     props: {
-        emails: {
+        proposals: {
             type: Array,
             required: true
         }

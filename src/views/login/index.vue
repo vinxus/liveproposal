@@ -36,6 +36,7 @@ export default {
     generateOTP (email) {
       this.$store.commit('setEmail', email)
       const onSuccess = (res) => {
+        console.log(res);
         this.$store.commit('snackbar/setSnack', this.$t('login.toast.success'))
         this.$router.push(this.localePath({ name: 'login-otp' }))
       }

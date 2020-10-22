@@ -1,4 +1,4 @@
-# ew3solar
+# liveproposal
 
 ## Project setup
 ```

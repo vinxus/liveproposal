@@ -15,8 +15,9 @@
 
 <style scoped>
     .footer {
-        position: relative;
-        top: 100px;
+        position: absolute;
+        top: 90%;
+        left: 30%;
         
     }
 </style>

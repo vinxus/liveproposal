@@ -12,12 +12,12 @@
             </form>
             <ul>
             <li
-                is="ToDoItem"
+                v-is="'ToDoItem'"
                 v-for="(todo, index) in todos"
                 v-bind:key="todo.id"
                 v-bind:title="todo.title"
                 v-on:remove="todos.splice(index, 1)"
-            ></li>
+            ></li> 
             
             </ul>
         </div>

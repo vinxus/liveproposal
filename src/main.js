@@ -1,16 +1,15 @@
-import Vue from 'vue'
+import { createApp, h } from 'vue';
 import App from './App.vue'
+import upperFirst from 'lodash/upperFirst';
+import camelCase from 'lodash/camelCase';
 import router from "./router";
 import axios from "axios";
 import store from './vuex/store'
 
-Vue.prototype.$http = axios;
+//Vue.prototype.$http = axios;
+const requireComponent = require.context('./components', false, /Base[A-Z]\w+\.(vue|js)$/)
 
-Vue.config.productionTip = false
-
-new Vue({
-  router,
-  store,
+const app = createApp({
   created() {
     const userString = localStorage.getItem('user')
     if(userString) {
@@ -29,5 +28,15 @@ new Vue({
     )
   },
 
-  render: h => h(App)
-}).$mount('#app')
+  render: () => h(App)
+})
+requireComponent.keys().forEach(fileName => {
+  const componentConfig = requireComponent(fileName)
+
+  const componentName = upperFirst(
+    camelCase(fileName.replace(/^\.\/(.*)\.\w+$/, '$1'))
+  )
+
+  app.component(componentName, componentConfig.default || componentConfig)
+})
+app.use(router).use(store).mount('#app')

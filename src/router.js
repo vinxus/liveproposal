@@ -1,5 +1,5 @@
-import Vue from "vue";
-import Router from "vue-router";
+//import Vue from "vue";
+import { createRouter, createWebHistory } from "vue-router";
 import Home from "./views/Home.vue";
 import Site from './components/Site.vue';
 import LiveProposal from './components/LiveProposal.vue';
@@ -14,8 +14,9 @@ import DashBoard from './components/DashBoard';
 import UserBoard from './components/UserBoard';
 import User from './components/User';
 import NotFoundComponent from './components/NotFoundComponent';
+import ProposalsIndex from './components/ProposalsIndex';
 
-Vue.use(Router);
+//Vue.use(Router);
 const routes = [
 
      { path: '/', component: Home },
@@ -91,10 +92,21 @@ const routes = [
             is_admin : true
         }
     },
-    { path: '*', component: NotFoundComponent },
+    {
+        path: '/proposals',
+        name: 'proposals',
+        component: ProposalsIndex,
+        // meta: {
+        //     requiresAuth: true,
+        //     is_admin : true
+        // }
+    },
+    // { path: '*', component: NotFoundComponent },
+    { path: '/:pathMatch(.*)*', name: 'not-found', component: NotFoundComponent },
+    { path: '/:pathMatch(.*)', name: 'bad-not-found', component: NotFoundComponent },
   ];
-  let router = new Router({
-    mode: 'history',
+  let router = createRouter({
+    history: createWebHistory(),
     routes: routes
     
   })

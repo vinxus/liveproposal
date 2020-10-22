@@ -14,10 +14,13 @@
       "date": "2019-01-03T21:54:00.000Z",
       "time": "2:00",
       "attendees": [],
+      "body": "",
       "createdAt": "2020-03-27T18:25:43.511Z",
       "createdBy": "Ahmid Oluwa",
       "archived": false,
-      "status": "active"
+      "status": "active",
+      "read": true,
+      "checked": true
     },
     {
       "id": 8419988,
@@ -33,10 +36,12 @@
       "date": "2019-01-31T22:09:00.000Z",
       "time": "7:00",
       "attendees": [],
+      "body": "",
       "createdAt": "2020-03-27T18:25:43.511Z",
       "createdBy": "Ahmid Oluwa",
-      "archived": false,
-      "status": "active"
+      "archived": true,
+      "status": "active",
+      "read": true
     },
     {
       "id": 4582797,
@@ -52,10 +57,12 @@
       "date": "2019-02-02T23:27:00.000Z",
       "time": "1:00",
       "attendees": [],
+      "body": "",
       "createdAt": "2020-03-27T18:25:43.511Z",
       "createdBy": "Ahmid Oluwa",
-      "archived": false,
-      "status": "active"
+      "archived": true,
+      "status": "active",
+      "read": true
     }
   ]
 }
