@@ -74,7 +74,7 @@
                                         username: userData.name })
                 })
                 .catch(err => {
-                    this.errors = err.response.data.errors
+                    this.errors = err.response
                 })
             },
         //     handleSubmit(e) {

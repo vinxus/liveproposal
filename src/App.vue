@@ -79,7 +79,7 @@ export default {
         padding: 20px;
         background-color: white;
         min-height: 40%;
-        max-height: 70%;
+        max-height: fit-content;
         z-index: 10;
         opacity: 1;
     }

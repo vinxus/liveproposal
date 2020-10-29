@@ -2,7 +2,7 @@
     <div class="dash">
         <h2>{{ $route.params.username }} Welcome to your Dashboard</h2>
         <h2>{{msg}}</h2>
-        <div dash-dialog>
+        <div class="dash-dialog">
             <span>Start a new Proposal <button @click="addProposal()">+</button></span>
             
         </div>              
@@ -11,7 +11,7 @@
                     :proposal="newProposal" 
                     @newProposal="newProposal" />            
         </ModalView>
-
+    <ProposalFirst />
     </div>
    
 </template>
@@ -27,7 +27,8 @@
     export default {
         components: {
             ProposalDialog,                        
-            ModalView
+            ModalView,
+      
         },
         data () {
             let proposals = [
@@ -80,9 +81,9 @@
                 msg: 'The commoners',
                 proposals,
                 format,
-                createProposal: ()=>{ return "New Proposal"},
-                newProposal: null, // ()=>{ return new Proposal()},
-                loadProposal: false,
+                
+                newProposal: null,
+                
             }
         },
         methods: {
@@ -91,9 +92,6 @@
                
                 this.newProposal = new Proposal();
                 console.log(this.newProposal);
-                // console.log(proposal);
-
-                this.loadProposal = true;
             },
             sortedProposals(){
                 return this.proposals.sort((e1, e2) => {
@@ -110,9 +108,6 @@
                     return e1.createdBy < e2.createdBy ? 1 : -1
                 })
             },
-            // createProposal() {
-            //     return "Create Proposal";
-            // },
             changeProposal({save, closeModal}) {
                 let proposal = this.openedProposal;
                 

@@ -6,7 +6,7 @@
         
         <router-link v-if="!loggedIn" to="/login" class="button">Login</router-link> 
         
-        <button v-else type="button" class="logoutButton" @click="logout">
+        <button v-else type="button"  class="logoutButton btn btn-primary" @click="logout">
           logout
         </button> | 
         <router-link v-if="!loggedIn" to="/register"> Register </router-link>

@@ -1,40 +1,20 @@
 <template>
   <div>
-    <h1>Create an event</h1>
+    <h1>Create a proposal</h1>
     <form>
-      <BaseSelect
-        :options="categories"
-        v-model="event.category"
-        label="Select a category"
-        />  
 
-      <h3>Name & describe your event</h3>
-
-      <label>Title</label>
-      <input
-        v-model="event.title"
-        type="text"
-        placeholder="Title"
-        class="field"
-      >
-      <BaseInput
-        v-model= "event.description"
-        label="Description"
-        type="text"
-      />
-
-      <h3>Where is your event?</h3>
-
-      <label>Location</label>
-      <input
-        v-model="event.location"
-        type="text"
-        placeholder="Location"
-        class="field"
-      />
-
-      <h3>Are pets allowed?</h3>
+        
       <div>
+        <ProposalFirst>
+                      
+        </ProposalFirst>
+        <ProposalSecond />
+        <ProposalThird />
+        <ProposalFourth />
+        <ProposalFifth />
+        <ProposalSixth />
+        <ProposalSeventh />
+
         <input
             type="radio"
             v-model="event.pets"
@@ -79,29 +59,47 @@
 </template>
 
 <script>
+import ProposalFirst from './forms/ProposalFirst';
+import ProposalSecond from './forms/ProposalSecond';
+import ProposalThird from './forms/ProposalThird';
+import ProposalFourth from './forms/ProposalFourth';
+import ProposalFifth from './forms/ProposalFifth';
+import ProposalSixth from './forms/ProposalSixth';
+import ProposalSeventh from './forms/ProposalSeventh';
+
 export default {
-  data () {
-    return {
-      categories: [
-        'sustainability',
-        'nature',
-        'animal welfare',
-        'housing',
-        'education',
-        'food',
-        'community'
-      ],
-      event: {
-        category: '',
-        title: '',
-        description: '',
-        location: '',
-        pets: 1,
-        extras: {
-          catering: false,
-          music: false
-        }
-      }
+    components: {
+        ProposalFirst,
+        ProposalSecond,
+        ProposalThird,
+        ProposalFourth,
+        ProposalFifth,
+        ProposalSixth,
+        ProposalSeventh
+    },
+    data () {
+        return {
+        categories: [
+            'sustainability',
+            'nature',
+            'animal welfare',
+            'housing',
+            'education',
+            'food',
+            'community'
+        ],
+        event: {
+            category: '',
+            title: '',
+            description: '',
+            location: '',
+            pets: 1,
+            extras: {
+            catering: false,
+            music: false
+            }
+        },
+      
     }
   }
 }

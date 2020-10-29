@@ -15,8 +15,8 @@ import UserBoard from './components/UserBoard';
 import User from './components/User';
 import NotFoundComponent from './components/NotFoundComponent';
 import ProposalsIndex from './components/ProposalsIndex';
+import NewProposalProcess from './components/NewProposalProcess';
 
-//Vue.use(Router);
 const routes = [
 
      { path: '/', component: Home },
@@ -100,6 +100,12 @@ const routes = [
         //     requiresAuth: true,
         //     is_admin : true
         // }
+    },
+    {
+        path: '/newproposals',
+        name: 'newproposals',
+        component: NewProposalProcess,
+
     },
     // { path: '*', component: NotFoundComponent },
     { path: '/:pathMatch(.*)*', name: 'not-found', component: NotFoundComponent },

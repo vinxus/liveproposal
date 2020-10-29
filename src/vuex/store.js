@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import axios from 'axios'
 
 //Vue.use(Vuex)
-let serverUrl = 'http://localhost:3030';
+let serverUrl = 'http://192.168.1.76:3030';
 export default new Vuex.Store({
   state: {
     user: null
@@ -40,7 +40,7 @@ export default new Vuex.Store({
     },
     login ({ commit }, credentials) {
       return axios
-        .post('//localhost:3030/login', credentials)
+        .post(serverUrl + '/login', credentials)
         .then(({ data }) => {
             console.log(data);
           commit('SET_USER_DATA', data)

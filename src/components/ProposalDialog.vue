@@ -5,31 +5,8 @@
         <div class="dialog-wrapper">
             <div class="dialog-container">
 
-                <div class="dialog-header">
-                    <slot name="header">
-                        <h2 class="mb-0">
-                            Title: <strong>{{(proposal) ? proposal.title : ''}}</strong>
-                        </h2>                             
-                        {{  header }}
-                    </slot>
-                </div>
-
-                <div class="dialog-body">
-                    <slot name="body">
-                        <div v-html="body"></div>
-                    </slot>
-                </div>
-
-                <div class="dialog-footer">
-                    <slot name="footer">
-                        {{ footer }}
-                        <button class="dialog-default-button" 
-                        @click="closeModal = true; manageDialog()">
-                            {{ buttons.close.text }}
-                        </button>
-
-                    </slot>
-                </div>
+               
+                <ProposalForm />
             </div>
         </div>
     </div>
@@ -39,6 +16,7 @@
 
 <script>
 import { ref } from 'vue';
+import ProposalForm from './ProposalForm';
 
 export default {
 
@@ -108,7 +86,7 @@ export default {
         type: Object,
         required: true
       }
-    }
-    // get data
+    },
+    components: {ProposalForm}
 }
 </script>

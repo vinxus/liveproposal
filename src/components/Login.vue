@@ -49,8 +49,7 @@
                     .catch(err => {
                         console.log('Error Login In!!!')
                         console.log(err);
-                        // console.log(err.response);
-                        // this.error = err.response
+
                     })
                 }
                 
@@ -62,7 +61,7 @@
                                     password: this.password
                                };
                 if (this.password.length > 0) {
-                    this.$http.post('http://localhost:3030/login', userData)
+                    this.$http.post('http://192.168.1.76:3030/login', userData)
                     .then(response => {
                        let is_admin = response.data.user.is_admin
                         localStorage.setItem('user',JSON.stringify(response.data.user))
