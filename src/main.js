@@ -18,8 +18,11 @@ const app = createApp({
     }
     axios.interceptors.response.use(
       response => response, 
+        
            error => {
-             if (error.response.status == 401) { // if we catch a 401 error
+             
+             console.log(error)
+             if (typeof error.response !== 'undefined' && error.response.status == 401) { // if we catch a 401 error
               console.log(error) 
               //this.$store.dispatch('logout') // force a log out
 

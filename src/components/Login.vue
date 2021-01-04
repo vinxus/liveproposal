@@ -8,13 +8,17 @@
             </div>
             <label for="password" >Password</label>                          
             <div class="reg-line">
-                <input id="password" type="password" v-model="password" required class="line-input">
+                <input id="password" type="password" 
+                        v-model="password" required class="line-input">
             </div>
             
             <div class="login-line">
                 <button type="submit" class="btn-primary">
                     Login
                 </button>                
+            </div>
+            <div class="login-line">
+                <router-link to="/passwordreset">Forgot password?</router-link>
             </div>
             <div class="login-line">
                 <router-link to="/register">Don't have an account? Register</router-link>
@@ -61,7 +65,7 @@
                                     password: this.password
                                };
                 if (this.password.length > 0) {
-                    this.$http.post('http://192.168.1.76:3030/login', userData)
+                    this.$http.post('http://localhost:3030/login', userData)
                     .then(response => {
                        let is_admin = response.data.user.is_admin
                         localStorage.setItem('user',JSON.stringify(response.data.user))

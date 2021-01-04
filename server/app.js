@@ -37,7 +37,7 @@ router.post('/register', function(req, res) {
 
     // })
 
-    console.log("Did you ever get here????");
+    console.log("New user registered.");
     db.insert([
         req.body.name,
         req.body.email,
@@ -94,6 +94,7 @@ router.post('/login', (req, res) => {
         if (!passwordIsValid) return res.status(401).send({ auth: false, token: null, error: 'Invalid username or password!' });
         if(passwordIsValid) {
             db.updateLogin(user, 1, function(err){
+                console.log(err)
                 // deal with any fallout here    
                 // if (err) return res.status(500).send({message: 'Something bad happened and I cannot log you in'});
             } )
@@ -114,13 +115,90 @@ router.post('/logout', (req, res) => {
     res.status(200).send({ auth: false, token: null, user: null, success: true, message: 'You have been logged out' });
 })
 router.get('/dashboard', verifyToken, (req, res) => {
-    jwt.verify(req.token, 'the_secret_key', err => {
+    jwt.verify(req.token, config.secret, err => {
         if(err) {
             res.sendStatus(401)
         } else {
         res.json({
             sections: sections
         })
+    }
+    })
+})
+router.get('/proposals', verifyToken, (req, res) => {
+    jwt.verify(req.token, config.secret, err => {
+        
+        if(err) {
+            res.sendStatus(401)
+        } else {
+        res.json(
+             [
+                  {
+                    "id": 5928101,
+                    "user": {
+                      "id": "abc123",
+                      "name": "Adam"
+                    },
+                    "category": "animal welfare",
+                    "organizer": "Adam",
+                    "title": "Cat Cabaret",
+                    "description": "Yay felines!",
+                    "location": "Meow Town",
+                    "date": "2019-01-03T21:54:00.000Z",
+                    "time": "2:00",
+                    "attendees": [],
+                    "body": "",
+                    "createdAt": "2020-03-27T18:25:43.511Z",
+                    "createdBy": "Ahmid Oluwa",
+                    "archived": false,
+                    "status": "active",
+                    "read": true,
+                    "checked": true
+                  },
+                  {
+                    "id": 8419988,
+                    "user": {
+                      "id": "abc123",
+                      "name": "Adam"
+                    },
+                    "category": "animal welfare",
+                    "organizer": "Adam",
+                    "title": "Kitty Cluster",
+                    "description": "Yay cats!",
+                    "location": "Catlandia",
+                    "date": "2019-01-31T22:09:00.000Z",
+                    "time": "7:00",
+                    "attendees": [],
+                    "body": "",
+                    "createdAt": "2020-03-27T18:25:43.511Z",
+                    "createdBy": "Ahmid Oluwa",
+                    "archived": true,
+                    "status": "active",
+                    "read": true
+                  },
+                  {
+                    "id": 4582797,
+                    "user": {
+                      "id": "abc123",
+                      "name": "Adam"
+                    },
+                    "category": "animal welfare",
+                    "organizer": "Adam",
+                    "title": "Puppy Parade",
+                    "description": "Yay pups!",
+                    "location": "Puptown ",
+                    "date": "2019-02-02T23:27:00.000Z",
+                    "time": "1:00",
+                    "attendees": [],
+                    "body": "",
+                    "createdAt": "2020-03-27T18:25:43.511Z",
+                    "createdBy": "Ahmid Oluwa",
+                    "archived": true,
+                    "status": "active",
+                    "read": true
+                  }
+            ]
+        )
     }
     })
 })

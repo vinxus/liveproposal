@@ -53,11 +53,12 @@ import ModalView from '@/components/ModalView.vue';
 import BulkActionBar from '@/components/BulkActionBar.vue';
 import { format } from 'date-fns';
 import useProposalSelection from '@/compositions/use-proposal-selection'
+const  appconfig = require('../appconfig')
 
 export default {
     async setup(){
 
-        let { data: proposals } = await axios.get(`http://localhost:3000/proposals`)
+        let { data: proposals } = await axios.get(appconfig.url + `proposals`)
         return {
             proposalSelection: useProposalSelection(),
             proposals: ref(proposals),
@@ -73,10 +74,12 @@ export default {
     },
     computed: {
         sortedProposals() {
+            console.log(this.proposals)
             // eslint-disable-next-line vue/no-side-effects-in-computed-properties
             return this.proposals.sort((p1, p2) => {
                 return p1.createdAt < p2.createdAt ? 1 : -1;
             })
+            // return this.proposals
         },
         filteredProposals() {
             if(this.selectedScreen == 'main') {
@@ -84,6 +87,8 @@ export default {
             } else {
                 return this.sortedProposals.filter(p => p.archived)
             }
+
+            // return this.proposals
         }
     },
     methods: {
@@ -123,7 +128,7 @@ export default {
         this.updateProposal(proposal)
       },
       updateProposal(proposal) {
-        axios.put(`http://localhost:3000/proposals/${proposal.id}`, proposal)
+        axios.put( appconfig.url + `proposals/${proposal.id}`, proposal)
       },
       manageDialogExit({closeModal, save}) {
           console.log(save)

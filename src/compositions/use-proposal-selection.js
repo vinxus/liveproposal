@@ -24,7 +24,7 @@ export const useProposalSelection = function(){
         
         proposals.forEach(proposal => {
             fn(proposal)
-            axios.put(`http://localhost:3000/proposals/${proposal.id}`, proposal)
+            axios.put(`http://localhost:3030/proposals/${proposal.id}`, proposal)
         })
     };
     const markRead = () => forSelected(e => e.read = true )

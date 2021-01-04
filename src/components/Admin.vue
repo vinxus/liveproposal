@@ -10,7 +10,7 @@
         name: "Admin",
         data () {
             return {
-                msg: 'The superheros'
+                msg: 'The Administrators'
             }
         }
     }

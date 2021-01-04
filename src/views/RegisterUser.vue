@@ -4,22 +4,28 @@
         <form @submit.prevent="register">
             <label for="name">Name</label>
             <div class="reg-line">
-                <input id="name" type="text" v-model="name" required autofocus class="line-input">
+                <input id="name" type="text" v-model="name" 
+                required autofocus class="line-input">
             </div>
 
             <label for="email" >E-Mail Address</label>
             <div class="reg-line">
-                <input id="email" type="email" v-model="email" required class="line-input">
+                <input id="email" type="email" v-model="email" 
+                required class="line-input">
             </div>
 
             <label for="password">Password</label>
             <div class="reg-line">
-                <input id="password" type="password" v-model="password" required class="line-input">
+                <input id="password" type="password" 
+                v-model="password" new-password
+                required class="line-input">
             </div>
 
             <label for="password-confirm">Confirm Password</label>
             <div class="reg-line">
-                <input id="password-confirm" type="password" v-model="password_confirmation" required class="line-input">
+                <input id="password-confirm" type="password" 
+                        v-model="password_confirmation" new-password
+                        required class="line-input">
             </div>
 
             <label for="password-confirm">Is this an administrator account?</label>
@@ -71,7 +77,7 @@
                 .dispatch('register', userData )
                 .then(() => {
                     this.$router.push({ name: 'dashboard', 
-                                        username: userData.name })
+                                        username: userData.user.name })
                 })
                 .catch(err => {
                     this.errors = err.response

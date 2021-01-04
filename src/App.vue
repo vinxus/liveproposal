@@ -2,6 +2,7 @@
   <div id="app">    
     <NavBar />
     <!-- <img alt="EW3 logo" src="./assets/logo.png"> -->
+    
     <router-link to="/introduction">Introduction</router-link> | 
     <router-link to="/landing">Proposal</router-link> | 
     <router-link to="terms">Terms and Conditions</router-link> |
@@ -171,5 +172,9 @@ export default {
 
     input[type='checkbox']:checked {
       background: #679;
+    }
+
+    h4 {
+      font-size: 20px;
     }
 </style>
