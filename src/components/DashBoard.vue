@@ -1,6 +1,6 @@
 <template>
     <div class="dash">
-        <h2>{{ $route.params.username }} Welcome to your Dashboard</h2>
+        <h2>{{ $route.params.username.toUpperCase() }} Welcome to your Dashboard</h2>
         <h2>{{msg}}</h2>
         <div class="dash-dialog">
             <span>Start a new Proposal <button @click="addProposal()">+</button></span>

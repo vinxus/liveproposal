@@ -11,6 +11,9 @@
          a combination of credit provision and technical support to the consumers.</p>
 
         <p>We hope this proposal will convince you that all these could be done affordably and at a profit to the investors.</p>
+        <div>
+            <button class="btn-primary">Create your proposal</button>
+        </div>
     </div>
 </template>
 <script>

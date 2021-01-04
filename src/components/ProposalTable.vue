@@ -51,6 +51,7 @@ import { ref } from 'vue';
 import ProposalView from '@/components/ProposalView.vue';
 import ModalView from '@/components/ModalView.vue';
 import BulkActionBar from '@/components/BulkActionBar.vue';
+
 import { format } from 'date-fns';
 import useProposalSelection from '@/compositions/use-proposal-selection'
 const  appconfig = require('../appconfig')
@@ -58,14 +59,16 @@ const  appconfig = require('../appconfig')
 export default {
     async setup(){
 
-        let { data: proposals } = await axios.get(appconfig.url + `proposals`)
+         let { data: proposals } = await axios.get(appconfig.serverUrl + `proposals`)
+        
+        //let { data: proposals } = await ProposalService.getProposals()
         return {
-            proposalSelection: useProposalSelection(),
-            proposals: ref(proposals),
-            openedProposal: ref(null),
-            format,
-            selectedScreen: ref('main'),
-        }
+                proposalSelection: useProposalSelection(),
+                proposals: ref(proposals),
+                openedProposal: ref(null),
+                format,
+                selectedScreen: ref('main'),
+            }
     },
     components: {
         BulkActionBar,
@@ -128,7 +131,11 @@ export default {
         this.updateProposal(proposal)
       },
       updateProposal(proposal) {
-        axios.put( appconfig.url + `proposals/${proposal.id}`, proposal)
+        let token = localStorage.getItem('jwt')
+        axios.defaults.headers.common['Authorization'] = `Bearer ${
+        token
+      }`  
+        axios.put( appconfig.serverUrl + `proposals/${proposal.id}`, proposal)
       },
       manageDialogExit({closeModal, save}) {
           console.log(save)

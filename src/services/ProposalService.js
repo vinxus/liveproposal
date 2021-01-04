@@ -1,25 +1,25 @@
 import axios from 'axios';
 
+const  appConfig = require('../appconfig')
 const apiClient = axios.create({
-    baseURL: `http://localhost:3030`,
+    baseURL: appConfig.serverUrl,
     withCredentials: false, // this is the default
     headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json',
-        // 'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',        
     }
 })
 
 export default {
     getProposals() {
-        return apiClient.get('/proposals')
+        return apiClient.get('proposals')
     },
     doPost(url, data) {
         return apiClient.post(url,data)
     },
 
     doLogout( user) {
-        apiClient.post('/logout', user)
+        apiClient.post('logout', user)
         console.log("DOING LOGOUT");
         console.log("REFRESHED?");
             localStorage.removeItem('user');
@@ -28,10 +28,10 @@ export default {
     },
 
     getComments() {
-        return apiClient.get('/comments/');
+        return apiClient.get('comments/');
     },
     getUserComments(userId) {
-        return apiClient.get('/comments/?userId=' + userId)
+        return apiClient.get('comments/?userId=' + userId)
     },
     checkUserLogin() {
         

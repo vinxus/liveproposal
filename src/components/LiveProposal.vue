@@ -40,6 +40,9 @@
        </ul>
        
    </div> 
+   <div>
+     <button class="btn-primary">Create your proposal</button>
+   </div>
 </template>
 <script>
 export default {

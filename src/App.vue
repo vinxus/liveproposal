@@ -4,9 +4,9 @@
     <!-- <img alt="EW3 logo" src="./assets/logo.png"> -->
     
     <router-link to="/introduction">Introduction</router-link> | 
-    <router-link to="/landing">Proposal</router-link> | 
-    <router-link to="terms">Terms and Conditions</router-link> |
-    <router-link to="/proposals">Show proposals</router-link>
+    <router-link to="/landing">Proposal</router-link>  
+    
+    <router-link v-if="loggedIn" to="/proposals"> | Show proposals</router-link>
     <router-view />
 
     <FooterBar />
@@ -17,7 +17,7 @@
 <script>
 import NavBar from "./components/NavBar";
 import FooterBar from "./components/FooterBar";
-
+import { authComputed } from './vuex/helpers.js';
 export default {
   name: 'App',
   components: {
@@ -26,12 +26,16 @@ export default {
   },
   props: {
     loginState: Boolean
+    
   },
 
   methods: {
     logout() {
       console.log('Logged out');
     }
+  },
+  computed: {
+      ...authComputed
   }
 
 }
@@ -176,5 +180,8 @@ export default {
 
     h4 {
       font-size: 20px;
+    }
+    .error {
+        color: red;
     }
 </style>

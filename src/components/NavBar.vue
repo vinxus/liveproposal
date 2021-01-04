@@ -1,7 +1,7 @@
 <template>
     <div id="nav" class="nav">
         <router-link to="/">Home</router-link>
-        <router-link v-if="loggedIn" :to="{name: 'dashboard', params: {username: this.getUser().name}}">Dashboard</router-link> 
+        <router-link v-if="loggedIn" :to="{name: 'dashboard', params: {username: this.getUser().name}}">{{ toNounCase(this.getUser().name) }} - Dashboard</router-link> 
       <nav class="topmenu">        
         
         <router-link v-if="!loggedIn" to="/login" class="button">Login</router-link> 
@@ -25,13 +25,17 @@
         methods: {
           logout() {
             console.log('Logged out');
-            this.$store.dispatch('logout');
+            var user = this.getUser()
+            this.$store.dispatch('logout', user);
           },
           getUser() {
             const userString = localStorage.getItem('user');
             let userData = JSON.parse(userString);
             
             return userData.user;
+          },
+          toNounCase(str) {
+            return str[0].toUpperCase() + str.slice(1);
           }
         }
 

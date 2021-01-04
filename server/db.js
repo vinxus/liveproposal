@@ -18,7 +18,18 @@ class Db {
                 is_logged_in integer)`
         return this.db.run(sql);
     }
-
+    createProposalTable() {
+        const sql = `
+            CREATE TABLE IF NOT EXISTS proposal (
+                id integer PRIMARY KEY,
+                title text,
+                category text,
+                category text,
+                body text,
+                createdAt dateTime
+                createdBy text)`
+        return this.db.run(sql);
+    }
     selectByEmail(email, callback) {
         return this.db.get(
             `SELECT * FROM user WHERE email = ?`,
@@ -44,7 +55,7 @@ class Db {
 
     insert(user, callback) {
         return this.db.run(
-            'INSERT INTO user (name,email,user_pass) VALUES (?,?,?)',
+            'INSERT INTO user (name,email,user_pass, is_admin) VALUES (?,?,?,?)',
             user, (err) => {
                 callback(err)
             })
@@ -52,7 +63,7 @@ class Db {
 
     updateLogin(email, loginStatus, callback) {
         var query = 'UPDATE user set is_logged_in = ? where email = ?'
-        
+        console.log('Update Login')
         return this.db.run(
             query,
             [loginStatus, email], (err) => {

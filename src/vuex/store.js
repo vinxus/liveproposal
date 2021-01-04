@@ -3,7 +3,8 @@ import Vuex from 'vuex'
 import axios from 'axios'
 
 //Vue.use(Vuex)
-let serverUrl = 'http://localhost:3030/';
+const appConfig = require('../appconfig');
+let serverUrl = appConfig.serverUrl;
 
 export default new Vuex.Store({
   state: {
@@ -23,10 +24,16 @@ export default new Vuex.Store({
         localStorage.removeItem('jwt')     
     },
     LOGOUT (state) {
+        
+        
         state.user = null
+        
+        
         localStorage.removeItem('user')
         localStorage.removeItem('jwt')
+
         axios.defaults.headers.common['Authorization'] = null
+        
         location.reload()
     }
   },
@@ -37,6 +44,7 @@ export default new Vuex.Store({
         .then(({ data }) => {
             console.log(data);
           commit('SET_USER_DATA', data)
+          return data
         })
     },
     login ({ commit }, credentials) {
@@ -49,7 +57,13 @@ export default new Vuex.Store({
         })
 
     },
-    logout({commit}) {
+    logout({commit}, credentials) {
+        axios
+        .post(serverUrl + 'logout', credentials)
+        .then(({data}) => {
+          console.log(data);
+
+        })
         commit('LOGOUT')
     },
     storeUserData({ commit }, userData){

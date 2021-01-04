@@ -44,12 +44,13 @@
             <div class="reg-line">
                 <router-link to="/login">Have an account? Login</router-link>
             </div>
-        </form>
-            <ul>
+            <ul class="error">
                 <li v-for="(error, index) in errors" :key="index">
                     {{ error }}
                 </li>
             </ul>
+        </form>
+            
     </div>
 </template>
 <script>
@@ -67,63 +68,38 @@
         },
         methods : {
             register () {
-            let userData = {
-                    name: this.name,
-                    email: this.email,
-                    password: this.password,
-                    is_admin: this.is_admin
-            };
-            this.$store
-                .dispatch('register', userData )
-                .then(() => {
-                    this.$router.push({ name: 'dashboard', 
-                                        username: userData.user.name })
-                })
-                .catch(err => {
-                    this.errors = err.response
-                })
+                if(this.password !==this.password_confirmation) {
+                    return this.errors = ["passwords mismatch"]
+                }
+                let userData = {
+                        name: this.name,
+                        email: this.email,
+                        password: this.password,
+                        is_admin: this.is_admin
+                };
+                
+                this.$store
+                    .dispatch('register', userData )
+                    .then((response) => {
+                        
+                        this.$router.push({ name:   'dashboard', 
+                                            params: {username: response.user.name}
+                                          })
+                                 
+                    })
+                    .catch(err => {
+                        console.log("Register User Error !!!")
+                        console.log(err)
+                        if(typeof err.response !=='undefined') {
+                            this.errors = err.response.data.errors
+                        } else {
+                            console.log(err)
+                            this.errors = ["Some error occurred contact dev@ellipweb.com for support"]
+                        }
+                        
+                    })
             },
-        //     handleSubmit(e) {
-        //         e.preventDefault()
-        //         console.log('Registration');
-        //         if (this.password === this.password_confirmation && this.password.length > 0)
-        //         {
-        //             let url = "http://localhost:3030/register";
-        //             let userData = { 
-        //                                 name: this.name,
-        //                                 email: this.email,
-        //                                 password: this.password,
-        //                                 is_admin: this.is_admin 
-        //                             };
-        //             if(this.is_admin != null || this.is_admin == 1) url = "http://localhost:3030/register-admin"
-        //             this.$http.post(url, userData)
-        //             .then(response => {
-        //                 localStorage.setItem('user',JSON.stringify(response.data.user))
-        //                 localStorage.setItem('jwt',response.data.token)
 
-        //                 if (localStorage.getItem('jwt') != null){
-        //                     this.$emit('loggedIn')
-        //                     this.$store
-        //                             .dispatch('storeUserData', userData)
-        //                     if(this.$route.params.nextUrl != null){
-        //                         this.$router.push(this.$route.params.nextUrl);
-                                
-        //                     }
-        //                     else{
-        //                         this.$router.push({name: 'dashboard', username: userData.name})
-        //                     }
-        //                 }
-        //             })
-        //             .catch(error => {
-        //                 console.error(error);
-        //             });
-        //         } else {
-        //             this.password = ""
-        //             this.passwordConfirm = ""
-
-        //             return alert("Passwords do not match")
-        //         }
-        //     }
          }
     }
 </script>

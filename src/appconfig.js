@@ -1,3 +1,3 @@
 module.exports = {
-    'url': `http://localhost:3030/`
+    'serverUrl': `http://localhost:3030/`
 };

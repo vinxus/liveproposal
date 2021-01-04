@@ -21,13 +21,17 @@ const app = createApp({
         
            error => {
              
-             console.log(error)
-             if (typeof error.response !== 'undefined' && error.response.status == 401) { // if we catch a 401 error
-              console.log(error) 
-              //this.$store.dispatch('logout') // force a log out
+             // console.log(error)
+             if (typeof error.response !== 'undefined' && error.response.status == 401) { 
+               // if we catch a 401 error
+               console.log("Dispatch errors - mains.js")
+               console.log(error) 
+               // send to login page
+               this.$store.dispatch('/login');
+               // this.$store.dispatch('logout') // force a log out
 
              }
-             return Promise.reject(error)  // reject the Promise, with the erro as the reason
+             return Promise.reject(error)  // reject the Promise, with the error as the reason
            }
     )
   },

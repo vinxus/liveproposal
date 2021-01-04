@@ -24,9 +24,9 @@ const routes = [
      { 
          path: '/landing', 
          component: LiveProposal, 
-         meta: {
-            requiresAuth: true
-         }, 
+        //  meta: {
+        //     requiresAuth: true
+        //  }, 
      },
      { path: '/proposal', component: Site, meta: { requiresAuth: true} },
      { path: '/introduction', component: Introduction },
@@ -112,7 +112,7 @@ const routes = [
     { path: '/:pathMatch(.*)', name: 'bad-not-found', component: NotFoundComponent },
   ];
   let router = createRouter({
-    history: createWebHistory(),
+    history: createWebHistory(process.env.BASE_URL),
     routes: routes
     
   })
