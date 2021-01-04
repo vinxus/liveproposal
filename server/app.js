@@ -93,7 +93,7 @@ router.post('/login', (req, res) => {
         let passwordIsValid = bcrypt.compareSync(req.body.password, user.user_pass);
         if (!passwordIsValid) return res.status(401).send({ auth: false, token: null, error: 'Invalid username or password!' });
         if(passwordIsValid) {
-            db.updateLogin(user, 1, function(err){
+            db.updateLogin(user.email, 1, function(err){
                 console.log(err)
                 // deal with any fallout here    
                 // if (err) return res.status(500).send({message: 'Something bad happened and I cannot log you in'});
@@ -109,6 +109,8 @@ router.post('/login', (req, res) => {
 router.post('/logout', (req, res) => {
     
     db.updateLogin(req.body.email, 0, function(err){
+        console.log("Do logout")
+        console.log(err)
         // deal with fallout here
         //if (err) return res.status(500).send({message: 'Something bad happened and I cannot log you out'});
     })

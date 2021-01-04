@@ -51,10 +51,11 @@ class Db {
     }
 
     updateLogin(email, loginStatus, callback) {
-        console.log(email);
+        var query = 'UPDATE user set is_logged_in = ? where email = ?'
+        
         return this.db.run(
-            'UPDATE user set is_logged_in =' + loginStatus + ' where email ='+ email,
-            email, (err) => {
+            query,
+            [loginStatus, email], (err) => {
                 callback(err)
             }
         )
